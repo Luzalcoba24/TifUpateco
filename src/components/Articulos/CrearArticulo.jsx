@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import { fetchCrearArticulo } from "../../hooks/ArticlesCon";
 import { fetchCategories } from "../../hooks/CategoryCon";
-
 
 export const CrearArticulo = () => {
     const [title, setTitle] = useState("");
@@ -9,10 +9,12 @@ export const CrearArticulo = () => {
     const [content, setContent] = useState("");
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
-    const [categories, setCategories] = useState([]); // Inicializa como un array vacío
-    const [selectedCategories, setSelectedCategories] = useState([]); // Categorías seleccionadas
+    const [categories, setCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    
+    const navigate = useNavigate(); // Instancia useNavigate
 
     useEffect(() => {
         const loadCategories = async () => {
@@ -27,7 +29,6 @@ export const CrearArticulo = () => {
         loadCategories();
     }, []);
     
-
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
     };
@@ -47,7 +48,7 @@ export const CrearArticulo = () => {
         formData.append("abstract", abstract);
         formData.append("content", content);
         formData.append("caption", caption);
-        formData.append("categories", JSON.stringify(selectedCategories)); // Incluir categorías seleccionadas como JSON
+        formData.append("categories", JSON.stringify(selectedCategories));
         if (image) {
             formData.append("image", image);
         }
@@ -60,10 +61,14 @@ export const CrearArticulo = () => {
             setContent("");
             setCaption("");
             setImage(null);
-            setSelectedCategories([]); // Reiniciar las categorías seleccionadas
+            setSelectedCategories([]);
         } catch (err) {
             setError(err.message);
         }
+    };
+
+    const handleCancel = () => {
+        navigate("/"); // Redirige a la página de inicio ("/")
     };
 
     return (
@@ -135,7 +140,6 @@ export const CrearArticulo = () => {
                             ))
                         )}
                     </select>
-
                 </div>
                 <div className="mb-3">
                     <label htmlFor="image" className="form-label">Imagen</label>
@@ -147,7 +151,8 @@ export const CrearArticulo = () => {
                         onChange={handleImageChange}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Crear Artículo</button>
+                <button type="submit" className="btn btn-primary me-2">Crear Artículo</button>
+                <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
             </form>
         </div>
     );
