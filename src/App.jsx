@@ -9,6 +9,9 @@ import Navbar from "./components/NavBar";
 import { EditarArticulo } from "./components/Articulos/EditarArticulo";
 import { ProtectedRoute } from "./contexts/ProtectedRoute";
 import PerfilUsuario from "./components/Profiles/PerfilUsuario";
+import Perfiles from "./components/Profiles/Perfiles";
+import Footer from "./components/Footer";
+
 
 const App = () => {
     return (
@@ -21,8 +24,10 @@ const App = () => {
                 <Route path="/articles/nuevo-articulo" element={ <ProtectedRoute> <CrearArticulo /> </ProtectedRoute>} />
                 <Route path="/articles/editar/:id" element={<ProtectedRoute><EditarArticulo /></ProtectedRoute>} />
                 <Route path="/perfil" element={<PerfilUsuario />} />
+                <Route path="/perfiles" element={<Perfiles />} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+            <Footer />
         </Router>
     );
 };
