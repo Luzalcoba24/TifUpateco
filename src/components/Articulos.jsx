@@ -59,8 +59,9 @@ export const Articulos = () => {
 
     return (  
         <div className="container">  
-            <div className="d-flex justify-content-between align-items-center mb-4">  
-                <h1 className="my-4">Artículos</h1>  
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h1>NOTI-DUCK</h1>  
+                <h2 className="my-4">Artículos</h2>  
                 <button onClick={handleNuevoArticulo} className="btn btn-success">Nuevo Artículo</button>  
             </div>  
             {error ? (  
